@@ -48,7 +48,6 @@ class GUISource implements InputSource {
                 command = "Left";
                 break;
             default :
-                break;
         }
 
         String logLine = String.format("K %s%n", command);
