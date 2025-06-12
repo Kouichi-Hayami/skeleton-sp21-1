@@ -10,10 +10,11 @@ public class IntListExercises {
      */
     public static void addConstant(IntList lst, int c) {
         IntList head = lst;
-        while (head.rest != null) {
+        for (int i = 0; i < lst.size() ; i++) {
             head.first += c;
             head = head.rest;
         }
+        //head.rest在最后一项肯定会等于null,所以之前的code最后一项都不会加上constant
     }
 
     /**
@@ -51,7 +52,7 @@ public class IntListExercises {
      */
     public static boolean firstDigitEqualsLastDigit(int x) {
         int lastDigit = x % 10;
-        while (x > 10) {
+        while (x >= 10) {
             x = x / 10;
         }
         int firstDigit = x % 10;
@@ -70,13 +71,13 @@ public class IntListExercises {
         if (lst == null) {
             return false;
         }
-
         boolean currElemIsPrime = Primes.isPrime(lst.first);
-
         if (currElemIsPrime) {
             lst.first *= lst.first;
         }
+        boolean restHasPrime = squarePrimes(lst.rest);
+        return currElemIsPrime || restHasPrime;
+        
 
-        return currElemIsPrime || squarePrimes(lst.rest);
     }
 }
