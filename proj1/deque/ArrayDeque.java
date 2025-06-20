@@ -24,10 +24,9 @@ public class ArrayDeque<T> {
     public void resize(int newSize){
         T[] newItems = (T[]) new Object[newSize];
         int currentIndex = plusOne(nextFirst);
-        for(int i = 0; i < size; i++){
+        for (int i = 0; i < size; i++) {
             newItems[i] = items[currentIndex];
             currentIndex = plusOne(currentIndex);
-
         }
         items = newItems;
         nextFirst = newSize - 1;
@@ -37,8 +36,8 @@ public class ArrayDeque<T> {
         if(size == items.length){
             resize(size * 2);
         }
-        nextFirst = minusOne(nextFirst); // nextfirst往回走那就是减法
         items[nextFirst] = item;
+        nextFirst = minusOne(nextFirst); // nextfirst往回走那就是减法
         size++;
 
     }
@@ -96,7 +95,7 @@ public class ArrayDeque<T> {
         }
     }
     public T get(int index){
-        if (index >= size){
+        if (index >= size || index < 0){
             return null;
         }
         int actualIndex = (plusOne(nextFirst) + index) % items.length;
