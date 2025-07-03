@@ -1,6 +1,8 @@
 package deque;
 
-public class ArrayDeque<T> {
+import java.util.Iterator;
+
+public class ArrayDeque<T> implements Deque<T> {
     private T[] items;
     private int size;
     private int nextFirst;//next index first will insert
@@ -49,12 +51,7 @@ public class ArrayDeque<T> {
         nextLast = plusOne(nextLast);
         size++;
     }
-    public boolean isEmpty(){
-        if (size == 0){
-            return true;
-        }
-        return false;
-    }
+
     public int size(){
         return size;
     }
@@ -118,5 +115,24 @@ public class ArrayDeque<T> {
             }
         }
         return true;
+    }
+    public Iterator<T> iterator(){
+        return new ArrayDequeIterator();
+    }
+
+    private class ArrayDequeIterator implements Iterator<T>{
+        private int current;
+
+        public ArrayDequeIterator() {
+            current = 0; //already handle the circular in get(index) method
+        }
+        public boolean hasNext(){
+            return current < size;
+        }
+        public T next(){
+            T returnItem = get(current);
+            current ++;
+            return returnItem;
+        }
     }
 }
