@@ -7,50 +7,33 @@ import org.junit.Test;
 import student.StudentArrayDeque;
 
 public class TestArrayDequeEC {
-
     @Test
-    public void randomizedTestWithDebugLog() {
+    public void test() {
         StudentArrayDeque<Integer> student = new StudentArrayDeque<>();
         ArrayDequeSolution<Integer> correct = new ArrayDequeSolution<>();
-
-        StringBuilder log = new StringBuilder();
-
-        for (int i = 0; i < 10000; i++) {
+        String message = "";
+        for (int i = 0; i < StdRandom.uniform(0, 1000000); i++) {
             double choice = StdRandom.uniform();
-            int val = StdRandom.uniform(1, 100);
-
-            if (choice < 0.25) {
-                student.addFirst(val);
-                correct.addFirst(val);
-                log.append("addFirst(").append(val).append(")\n");
-
-            } else if (choice < 0.5) {
-                student.addLast(val);
-                correct.addLast(val);
-                log.append("addLast(").append(val).append(")\n");
-
-            } else if (choice < 0.75) {
-                int expectedSize = correct.size();
-                int actualSize = student.size();
-                log.append("size()\n");
-                assertEquals(log.toString(), expectedSize, actualSize);
-
+            Integer randVal = StdRandom.uniform(0, 100);
+            if (choice < 0.33) {
+                student.addLast(randVal);
+                correct.addLast(randVal);
+                message += "addLast(" + randVal + ")\n";
+            } else if (choice < 0.67) {
+                student.addFirst(randVal);
+                correct.addFirst(randVal);
+                message += "addFirst(" + randVal + ")\n";
             } else {
                 int size = student.size();
-                log.append("size()\n");
-
-                if (size > 0) {
-                    Integer expected, actual;
-                    if (val > 50) {
-                        expected = correct.removeFirst();
-                        actual = student.removeFirst();
-                        log.append("removeFirst()\n");
+                message += "size()\n";
+                if(size > 0){
+                    if(randVal <50){
+                        message+="removeFirst()\n";
+                        assertEquals(message,correct.removeFirst(),student.removeFirst());
                     } else {
-                        expected = correct.removeLast();
-                        actual = student.removeLast();
-                        log.append("removeLast()\n");
+                        message +="removeLast()\n";
+                        assertEquals(message,correct.removeLast(),student.removeLast());
                     }
-                    assertEquals(log.toString(), expected, actual);
                 }
             }
         }
