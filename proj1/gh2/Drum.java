@@ -5,7 +5,7 @@ import edu.princeton.cs.algs4.StdRandom;
 
 public class Drum extends GuitarString {
 
-
+    private Deque<Double> buffer;
     private static final double DECAY = 1.0;
 
     public Drum(double frequency) {
@@ -14,14 +14,14 @@ public class Drum extends GuitarString {
 
     @Override
     public void tic() {
-        double first = super.buffer.removeFirst();
-        double second = super.buffer.get(0);
+        double first = buffer.removeFirst();
+        double second = buffer.get(0);
         double newSample = DECAY * 0.5 * (first + second);
         double probability = StdRandom.uniform();
         if (probability < 0.5) {
-            super.buffer.addLast(newSample);
+            buffer.addLast(newSample);
         } else {
-            super.buffer.addLast(-newSample);
+            buffer.addLast(-newSample);
         }
     }
 }

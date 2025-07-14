@@ -2,7 +2,7 @@ package deque;
 
 import java.util.Iterator;
 
-public class ArrayDeque<T> implements Deque<T> {
+public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     private T[] items;
     private int size;
     private int nextFirst;//next index first will insert
@@ -17,13 +17,14 @@ public class ArrayDeque<T> implements Deque<T> {
         nextFirst = DEFAULT_CAPACITY - 1;
         nextLast = 0;
     }
-    public int plusOne(int index){
+    private int plusOne(int index){
         return (index + 1) % items.length;
     }
-    public int minusOne(int index){
+    private int minusOne(int index){
         return (index - 1 + items.length) % items.length;
     }
-    public void resize(int newSize){
+
+    private void resize(int newSize){
         T[] newItems = (T[]) new Object[newSize];
         int currentIndex = plusOne(nextFirst);
         for (int i = 0; i < size; i++) {
@@ -86,7 +87,7 @@ public class ArrayDeque<T> implements Deque<T> {
         return last;
     }
 
-    public void checkUsage(){
+    private void checkUsage(){
         if (items.length >= 16 && size < items.length / 4) {
             resize(items.length / 2);
         }

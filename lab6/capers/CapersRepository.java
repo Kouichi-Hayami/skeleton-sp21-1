@@ -45,7 +45,7 @@ public class CapersRepository {
         if (!dogsFolder.exists()) {
             dogsFolder.mkdirs();
         }
-
+        //if story file not exists, try to create a story
         try {
             STORY.createNewFile(); // might fail, so i need to add this
         } catch (IOException e) {
@@ -59,8 +59,10 @@ public class CapersRepository {
      * @param text String of the text to be appended to the story
      */
     public static void writeStory(String text) {
-        text  = readContentsAsString(STORY) + text + "\n";; //read the story file and add the text
-        writeContents(STORY, text); // overwrite the current story file
+        //read the current content in the story file and add the new text
+        text  = readContentsAsString(STORY) + text + "\n";
+        //overwrite the current old story file
+        writeContents(STORY, text);
         System.out.println(text); //print out the string
     }
 

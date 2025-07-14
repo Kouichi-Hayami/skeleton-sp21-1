@@ -40,7 +40,9 @@ public class Dog implements Serializable { //
      * @return Dog read from file
      */
     public static Dog fromFile(String name) {
+        //construct the dog path
         File dogFile = join(DOG_FOLDER, name);
+        //read the dog object from the file
         return readObject(dogFile, Dog.class);
     }
 
@@ -57,8 +59,8 @@ public class Dog implements Serializable { //
      * Saves a dog to a file for future use.
      */
     public void saveDog() {
-        File dogFile = join(DOG_FOLDER, this.name);// no local variable can ignore this
-        writeObject(dogFile, this);
+        File dogFile = join(DOG_FOLDER, this.name);// no local variable can ignore this, construct the do file
+        writeObject(dogFile, this);//write the object into file
     }
 
     @Override

@@ -1,16 +1,16 @@
 package deque;
 import java.util.Iterator;
 
-public class LinkedListDeque<T> implements Deque<T> {
+public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
     private IntNode sentinel;
     private int size;
 
-    public class IntNode{
-        public IntNode prev;
-        public T item;
-        public IntNode next;
+    private class IntNode{
+        private IntNode prev;
+        private T item;
+        private IntNode next;
 
-        public IntNode(IntNode p, T item, IntNode n) {
+        private IntNode(IntNode p, T item, IntNode n) {
             prev = p;
             this.item = item;
             next = n;
