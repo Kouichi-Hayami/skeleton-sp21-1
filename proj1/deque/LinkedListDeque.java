@@ -33,8 +33,9 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
         sentinel <-> A <-> B
         newNode: prev = sentinel, item = item, next = A
          */
-        sentinel.next.prev = newNode; //snetinel.next is the current first item, assign the newNode to the first item
-        sentinel.next = newNode;//sentinel.next is still pointing to A, assign it to newNode
+        sentinel.next.prev = newNode;
+        //snetinel.next is the current first item, assign the newNode to the first item
+        sentinel.next = newNode; //sentinel.next is still pointing to A, assign it to newNode
         size++;
     }
 
@@ -58,7 +59,6 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
 
     @Override
     public void printDeque() {
-        int size = this.size;
         IntNode current = sentinel.next;
         for (int i = 0; i < size; i++) {
             System.out.print(current.item + " ");
@@ -122,26 +122,27 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
         if (o == this) {
             return true;
         }
-        if (o instanceof LinkedListDeque) {
-            LinkedListDeque<?> other = (LinkedListDeque<?>) o;
-            if (size != other.size) {
-                return false;
-            }
-            for (int i = 0; i < size; i++) {
-                Object a = this.get(i);
-                Object b = other.get(i);
-                if (a == null) {
-                    if (b != null) {
-                        return false;
-                    }
-                } else if (!a.equals(b)) {
+        if (!(o instanceof Deque<?> other)) {
+            return false;
+        }
+        if (this.size() != other.size()) {
+            return false;
+        }
+        for (int i = 0; i < size; i++) {
+            Object a = this.get(i);
+            Object b = other.get(i);
+            if (a == null) {
+                if (b != null) {
                     return false;
                 }
+            } else if (!a.equals(b)) {
+                return false;
             }
-            return true;
         }
-        return false;
+        return true;
     }
+
+
 
     @Override
     public Iterator<T> iterator() {
@@ -151,7 +152,7 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
     private class LinkedListIterator implements Iterator<T> {
         private IntNode current;
 
-        public LinkedListIterator() {
+        LinkedListIterator() {
             current = sentinel.next;
         }
 

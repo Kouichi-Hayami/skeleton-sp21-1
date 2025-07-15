@@ -16,7 +16,7 @@ public class GuitarString {
 
     /* Create a guitar string of the given frequency.  */
     public GuitarString(double frequency) {
-        int capacity = (int)Math.round(SR/frequency);
+        int capacity = (int) Math.round(SR / frequency);
         buffer = new ArrayDeque<>();
         //fill array with zeros
         for (int i = 0; i < capacity; i++) {
@@ -46,7 +46,7 @@ public class GuitarString {
     public void tic() {
         double s1 = buffer.removeFirst();
         double s2 = buffer.get(0);
-        double newSample =DECAY * 0.5 * (s1 + s2);
+        double newSample = DECAY * 0.5 * (s1 + s2);
         buffer.addLast(newSample);
     }
 

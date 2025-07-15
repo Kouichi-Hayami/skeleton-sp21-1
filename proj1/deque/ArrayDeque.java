@@ -5,8 +5,8 @@ import java.util.Iterator;
 public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     private T[] items;
     private int size;
-    private int nextFirst;//next index first will insert
-    private int nextLast;//next index last will insert
+    private int nextFirst; //next index first will insert
+    private int nextLast; //next index last will insert
     private static final int DEFAULT_CAPACITY = 8;
 
     //这个list并不一定是从0开始的，所以用两个pointer把它固定住了
@@ -79,7 +79,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         if (isEmpty()) {
             return null;
         }
-        nextFirst = plusOne(nextFirst);//the first item will be removed, so the nextfirst + 1
+        nextFirst = plusOne(nextFirst); //the first item will be removed, so the nextfirst + 1
         T first = items[nextFirst];
         items[nextFirst] = null;
         size--;
@@ -92,7 +92,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         if (isEmpty()) {
             return null;
         }
-        nextLast = minusOne(nextLast);//the lst item will be removed
+        nextLast = minusOne(nextLast); //the lst item will be removed
         T last = items[nextLast];
         items[nextLast] = null;
         size--;
@@ -120,26 +120,26 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         if (o == this) {
             return true;
         }
-        if (o instanceof ArrayDeque) {
-            ArrayDeque<?> other = (ArrayDeque<?>) o;
-            if (size != other.size) {
-                return false;
-            }
-            for (int i = 0; i < size; i++) {
-                Object a = this.get(i);
-                Object b = other.get(i);
-                if (a == null) {
-                    if (b != null) {
-                        return false;
-                    }
-                } else if (!a.equals(b)) {
+        if (!(o instanceof Deque<?> other)) {
+            return false;
+        }
+        if (this.size() != other.size()) {
+            return false;
+        }
+        for (int i = 0; i < size; i++) {
+            Object a = this.get(i);
+            Object b = other.get(i);
+            if (a == null) {
+                if (b != null) {
                     return false;
                 }
+            } else if (!a.equals(b)) {
+                return false;
             }
-            return true;
         }
-        return false;
+        return true;
     }
+
 
     @Override
     public Iterator<T> iterator() {
@@ -149,7 +149,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     private class ArrayDequeIterator implements Iterator<T> {
         private int current;
 
-        public ArrayDequeIterator() {
+        ArrayDequeIterator() {
             current = 0; //already handle the circular in get(index) method
         }
 

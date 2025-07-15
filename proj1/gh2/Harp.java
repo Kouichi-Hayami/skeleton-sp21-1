@@ -14,7 +14,7 @@ public class Harp extends GuitarString {
     @Override
     public void tic() {
         double first = buffer.removeFirst();
-        double second =buffer.get(0);
+        double second = buffer.get(0);
         double newSample = DECAY * 0.5 * (first + second);
         buffer.addLast(-newSample);
     }
