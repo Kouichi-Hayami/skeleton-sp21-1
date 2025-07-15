@@ -21,6 +21,7 @@ public class GuitarHero {
             strings[i] = new GuitarString(concert(i));
         }
     }
+
     private static void harp() {
         harps = new Harp[SIZE];
         for (int i = 0; i < SIZE; i++) {
