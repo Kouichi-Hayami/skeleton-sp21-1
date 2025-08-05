@@ -9,6 +9,7 @@ public class Flik {
      *  @return Whether a and b are the same */
     public static boolean isSameNumber(Integer a, Integer b) {
         return a.equals(b);
-        //store data in bewteen -128 and 127, everything beyond this range will be false
     }
+        //store data in bewteen -128 and 127, everything beyond this range will be false
+
 }
