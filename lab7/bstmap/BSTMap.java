@@ -23,13 +23,23 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V>{
     @Override
     public void clear(){
         root = null;
+        size = 0;
     }
 
     /* Returns true if this map contains a mapping for the specified key. */
     @Override
     public boolean containsKey(K key){
-        return get(key) != null;
+        return containsKeyHelper(root, key);
     }
+
+    private boolean containsKeyHelper(BSTNode node, K key) {
+        if (node == null) return false;
+        int cmp = key.compareTo(node.key);
+        if (cmp < 0) return containsKeyHelper(node.left, key);
+        if (cmp > 0) return containsKeyHelper(node.right, key);
+        return true; // 找到了
+    }
+
 
     /* Returns the value to which the specified key is mapped, or null if this
      * map contains no mapping for the key.
@@ -63,7 +73,7 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V>{
     /* Associates the specified value with the specified key in this map. */
     @Override
     public void put(K key, V value){
-        putHelper(root, key, value);
+        root = putHelper(root, key, value);
     }
     private BSTNode putHelper(BSTNode root, K key, V value){
         if (root == null){
@@ -117,14 +127,17 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V>{
             //找到了 key，判断它有几个子节点
             if (node.left == null) return node.right; // 只有右子树或是叶子
             if (node.right == null) return node.left; // 只有左子树
-            }
 
-        //node with two children,找出当前节点 右子树中最小的节点
-        BSTNode successor = findMin(node.right);
-        node.key = successor.key;
-        node.value = successor.value;//copy the value of the children
-        node.right = removeHelper(node.right, successor.key);//我们进入以right为根的子树，递归查找并删除key。
+            //当节点 既有左子树也有右子树 时，才应该走 findMin() 逻辑
+            //node with two children,找出当前节点 右子树中最小的节点
+            BSTNode successor = findMin(node.right);
+            node.key = successor.key;
+            node.value = successor.value;//copy the value of the children
+            node.right = removeHelper(node.right, successor.key);//我们进入以right为根的子树，递归查找并删除key。
+            }
         return node;
+
+
     }
 
     private BSTNode findMin(BSTNode node) {
